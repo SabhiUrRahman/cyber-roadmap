@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sabhi's Cyber Roadmap</title>
+<meta name="description" content="Week-by-week cybersecurity roadmap from zero to a first security internship by September 2027.">
+<meta name="theme-color" content="#1F5FA8">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+  /* Layout: a transit-style route — phases are stations on one vertical line; summary and "this week" sit above it */
+  :root {
+    --bg: #F3F5F8;
+    --surface: #FFFFFF;
+    --ink: #0F1B2D;
+    --muted: #5A6B80;
+    --line: #D8DFE9;
+    --accent: #1F5FA8;
+    --accent-soft: #E3EDF9;
+    --done: #1E8656;
+    --done-soft: #E2F3EA;
+    --warn: #A15C07;
+    --warn-soft: #FBEFD9;
+    --font-display: "Archivo", "Segoe UI", Arial, sans-serif;
+    --font-body: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B1220; --surface: #121B2D; --ink: #E6EDF6; --muted: #93A3B8; --line: #26344D;
+      --accent: #63B3F0; --accent-soft: #15294A; --done: #42C48C; --done-soft: #123326;
+      --warn: #F0B45A; --warn-soft: #3A2A10; color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B1220; --surface: #121B2D; --ink: #E6EDF6; --muted: #93A3B8; --line: #26344D;
+    --accent: #63B3F0; --accent-soft: #15294A; --done: #42C48C; --done-soft: #123326;
+    --warn: #F0B45A; --warn-soft: #3A2A10; color-scheme: dark;
+  }
+
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--font-body); font-size: 15px; line-height: 1.5;
+  }
+  .wrap {
+    max-width: 880px; margin: 0 auto;
+    padding-block: 28px 56px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    display: grid; gap: 22px;
+  }
+  .eyebrow, .mono { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+  h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(30px, 6vw, 44px); line-height: 1.05; margin: 6px 0 8px; letter-spacing: -0.01em; text-wrap: balance; }
+  h2 { font-family: var(--font-display); font-weight: 700; font-size: 20px; margin: 0; text-wrap: balance; }
+  h3 { font-family: var(--font-display); font-weight: 700; font-size: 15px; margin: 0; }
+  .lede { margin: 0; color: var(--muted); max-width: 62ch; }
+
+  /* Summary strip */
+  .summary { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 12px; }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 6px; min-width: 0; }
+  .stat .big { font-family: var(--font-display); font-weight: 800; font-size: 28px; font-variant-numeric: tabular-nums; line-height: 1; }
+  .bar { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; }
+  .bar > span { display: block; height: 100%; width: 0; background: var(--done); border-radius: 99px; transition: width .3s ease; }
+  .sync { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
+  .sync::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+  .sync[data-state="saved"]::before { background: var(--done); }
+  .sync[data-state="saving"]::before { background: var(--accent); }
+  .sync[data-state="local"]::before, .sync[data-state="error"]::before { background: var(--warn); }
+
+  /* This week */
+  .week { background: var(--accent-soft); border: 1px solid var(--accent); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+  .week-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 14px; }
+
+  /* Tasks */
+  .tasks { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .task label { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; padding: 7px 8px; border-radius: 8px; cursor: pointer; }
+  .task label:hover { background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .task input { appearance: none; width: 20px; height: 20px; margin: 1px 0 0; border: 2px solid var(--muted); border-radius: 5px; display: grid; place-items: center; cursor: pointer; background: var(--surface); }
+  .task input:checked { background: var(--done); border-color: var(--done); }
+  .task input:checked::after { content: ""; width: 5px; height: 10px; border: solid var(--surface); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px); }
+  .task input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .task input:disabled { cursor: not-allowed; opacity: .6; }
+  .task.done .text { color: var(--muted); text-decoration: line-through; text-decoration-color: color-mix(in srgb, var(--muted) 60%, transparent); }
+  .text { min-width: 0; }
+  .text small { display: block; color: var(--muted); font-size: 13px; text-decoration: none; }
+
+  /* Route */
+  .route { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: 18px; }
+  .route::before { content: ""; position: absolute; left: 13px; top: 18px; bottom: 18px; width: 3px; background: var(--line); border-radius: 3px; }
+  .phase { position: relative; padding-left: 44px; }
+  .station { position: absolute; left: 4px; top: 16px; width: 21px; height: 21px; border-radius: 50%; background: var(--surface); border: 3px solid var(--line); }
+  .phase[data-status="now"] .station { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft); }
+  .phase[data-status="done"] .station { border-color: var(--done); background: var(--done); }
+  .phase[data-status="behind"] .station { border-color: var(--warn); }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 16px 12px; display: grid; gap: 10px; min-width: 0; }
+  .phase[data-status="now"] .card { border-color: var(--accent); }
+  .phase-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+  .phase-head h2 { flex: 1 1 auto; min-width: 0; }
+  .chip { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+  .chip.now { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+  .chip.done { color: var(--done); border-color: var(--done); background: var(--done-soft); }
+  .chip.behind { color: var(--warn); border-color: var(--warn); background: var(--warn-soft); }
+  .goal { margin: 0; color: var(--muted); }
+  .group { display: grid; gap: 2px; }
+  .group h3 { padding: 6px 8px 0; color: var(--muted); font-family: var(--font-mono); font-weight: 500; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .proof { font-size: 13px; color: var(--muted); border-top: 1px dashed var(--line); padding-top: 8px; margin: 0; }
+  .proof b { color: var(--ink); font-weight: 600; }
+  .count { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Rules */
+  .rules { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 10px; }
+  .rules ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+  .note { font-size: 13px; color: var(--muted); margin: 0; }
+
+  @media (max-width: 640px) {
+    .summary { grid-template-columns: 1fr 1fr; }
+    .summary .stat:first-child { grid-column: 1 / -1; }
+  }
+  @media (prefers-reduced-motion: reduce) { .bar > span { transition: none; } }
+</style>
+<style>
+  html { color-scheme: light; }
+  body { margin: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+  [hidden] { display: none !important; }
+  .tools { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 18px; display: grid; gap: 12px; }
+  .tool-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .btn { font: 600 14px/1 var(--font-body); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: var(--surface); cursor: pointer; }
+  .btn.ghost { background: transparent; color: var(--accent); }
+  .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  textarea { width: 100%; min-height: 70px; font: 13px/1.4 var(--font-mono); padding: 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); resize: vertical; }
+  .msg { font-size: 13px; color: var(--done); margin: 0; min-height: 1em; }
+  .msg.err { color: var(--warn); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">BS Cyber Security · Semester 1 · Lahore</div>
+    <h1>Sabhi's Cyber Roadmap</h1>
+    <p class="lede">From zero to a first security internship before 3rd semester (September 2027). Track: web application security, then the security of AI-built apps. About 1 to 1.5 hours a day, 6 days a week.</p>
+  </header>
+
+  <section class="summary" aria-label="Progress summary">
+    <div class="stat">
+      <div class="mono">Overall progress</div>
+      <div class="big" id="pct">0%</div>
+      <div class="bar" aria-hidden="true"><span id="pct-bar"></span></div>
+      <div class="sync" id="sync" data-state="saved">Saved on this device</div>
+    </div>
+    <div class="stat">
+      <div class="mono">Steps done</div>
+      <div class="big" id="count">0 / 0</div>
+      <div class="note" id="now-label">Current phase: …</div>
+    </div>
+    <div class="stat">
+      <div class="mono">Until Sep 2027</div>
+      <div class="big" id="weeks">–</div>
+      <div class="note">weeks left before 3rd semester</div>
+    </div>
+  </section>
+
+  <section class="week" aria-labelledby="week-title">
+    <div class="week-head">
+      <h2 id="week-title">This week</h2>
+      <span class="mono" id="week-sub"></span>
+    </div>
+    <ul class="tasks" id="week-tasks"></ul>
+    <p class="note">Finished a step that changes your profile (a badge, a project, an internship)? Tell Claude, and it will update LinkedIn, GitHub and your CV.</p>
+  </section>
+
+  <ol class="route" id="route" aria-label="Roadmap phases"></ol>
+
+  <section class="tools" aria-labelledby="tools-title">
+    <h2 id="tools-title">Move your ticks to another device</h2>
+    <p class="note">Ticks are saved in this browser only, and the page works without internet once it has loaded. To use the same ticks on your phone and laptop, copy your progress code here and load it on the other device.</p>
+    <div class="tool-row">
+      <button class="btn" id="copy-btn" type="button">Copy my progress code</button>
+      <button class="btn ghost" id="load-toggle" type="button">Load a progress code</button>
+    </div>
+    <textarea id="code-out" readonly hidden aria-label="Your progress code"></textarea>
+    <div id="load-box" class="tool-row" hidden>
+      <textarea id="code-in" aria-label="Paste a progress code" placeholder="Paste a code that starts with CR1:"></textarea>
+      <button class="btn" id="load-btn" type="button">Add these ticks</button>
+    </div>
+    <p class="msg" id="tool-msg" role="status"></p>
+  </section>
+
+  <section class="rules" aria-labelledby="rules-title">
+    <h2 id="rules-title">Rules that keep you fast</h2>
+    <ol>
+      <li><b>One course at a time.</b> Finish it before opening another.</li>
+      <li><b>Do, don't only watch.</b> Every hour of video gets a lab or a hands-on check.</li>
+      <li><b>Explain it in two lines.</b> If you can't write it simply on GitHub, you don't know it yet.</li>
+      <li><b>Use AI as a tutor,</b> then check its answer against the course.</li>
+      <li><b>Test only what you own</b> or have written permission to test. Never break this one.</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+const PHASES = [
+  {
+    id: "p0", name: "Absolute basics", start: "2026-11-01", end: "2026-11-30", range: "Nov 2026",
+    goal: "Learn the language of security, how the internet works, and your first Linux and web-security steps.",
+    proof: "Cisco badge, Week 1–4 notes on GitHub, first LinkedIn post",
+    groups: [
+      { title: "Week 1 · Security language", tasks: [
+        ["w1-1", "Create a free Cisco NetAcad account and enroll in Introduction to Cybersecurity", "netacad.com"],
+        ["w1-2", "Finish the course modules", "About 6 hours in total, 1 to 1.5 hours a day"],
+        ["w1-3", "Make Anki flashcards for the 16 starter terms", "Asset, threat, vulnerability, risk, control, CIA triad and the rest"],
+        ["w1-4", "Pass the final quiz and get the badge", "Then send it to Claude for LinkedIn and the CV"],
+        ["w1-5", "Write Week 1 notes on GitHub in your own words", "cybersecurity-foundations / week-01"],
+        ["w1-6", "Turn on 2FA with an authenticator app for your work email and GitHub", ""],
+        ["w1-7", "Find and join the university cyber society or CTF team", ""],
+      ]},
+      { title: "Week 2 · How the internet works", tasks: [
+        ["w2-1", "Learn IP addresses, DNS, ports, HTTP vs HTTPS, cookies and sessions", "Cisco Networking Basics or Professor Messer Network+ videos"],
+        ["w2-2", "Inspect a site you built in DevTools", "DNS records, cookies, response headers, third-party scripts: write what each does"],
+        ["w2-3", "Write Week 2 notes on GitHub", ""],
+      ]},
+      { title: "Week 3 · Linux basics", tasks: [
+        ["w3-1", "Learn files, users, permissions and processes", ""],
+        ["w3-2", "Clear OverTheWire Bandit levels 0–10", "Windows already has SSH built in"],
+        ["w3-3", "Write Week 3 notes on GitHub", ""],
+      ]},
+      { title: "Week 4 · First web security", tasks: [
+        ["w4-1", "Create a PortSwigger Web Security Academy account and read Access control and Authentication", "Free"],
+        ["w4-2", "Solve your first 3 Apprentice labs", ""],
+        ["w4-3", "Install Burp Suite Community", ""],
+        ["w4-4", "Post on LinkedIn: “30 days from zero: what I learned”", ""],
+      ]},
+    ],
+  },
+  {
+    id: "p1", name: "Foundations", start: "2026-12-01", end: "2027-02-28", range: "Dec 2026 – Feb 2027",
+    goal: "Networking, Linux and the core of web security, with write-ups that prove it.",
+    proof: "portswigger-writeups repo, 4–6 LinkedIn posts, skills you can explain",
+    groups: [{ title: "", tasks: [
+      ["p1-1", "Finish a networking basics course", "Cisco Networking Basics or Professor Messer Network+"],
+      ["p1-2", "Clear OverTheWire Bandit levels 11–20", ""],
+      ["p1-3", "Finish all PortSwigger Apprentice labs", "SQLi, XSS, access control, authentication, SSRF, CSRF"],
+      ["p1-4", "Study OWASP Top 10 and OWASP API Security Top 10", ""],
+      ["p1-5", "Learn basic Python for small scripts", "requests, reading HTML"],
+      ["p1-6", "Start a portswigger-writeups repo with your own explanations", ""],
+      ["p1-7", "Publish 4–6 LinkedIn posts that show real work", ""],
+      ["p1-8", "Optional: Google Cybersecurity Certificate on Coursera", "Apply for financial aid"],
+    ]}],
+  },
+  {
+    id: "p2", name: "AI-built apps", start: "2027-02-01", end: "2027-04-30", range: "Feb – Apr 2027",
+    goal: "Learn the stack AI builders generate by building it yourself, then ship your first project.",
+    proof: "Project 1 on GitHub, cybersecurity internship CV",
+    groups: [{ title: "", tasks: [
+      ["p2-1", "Build 2–3 small apps yourself with AI app builders", "Login, notes, file upload"],
+      ["p2-2", "Learn Supabase Row Level Security and Firebase Security Rules", "Also anon vs service keys, environment variables, Stripe webhooks"],
+      ["p2-3", "Ship Project 1: no-code website security checklist and passive checker v0.1", "Open source on GitHub"],
+      ["p2-4", "Make a cybersecurity internship version of your CV", "Ask Claude"],
+    ]}],
+  },
+  {
+    id: "p3", name: "Tools and AI security", start: "2027-04-01", end: "2027-06-30", range: "Apr – Jun 2027",
+    goal: "Learn the scanners, then the judgement on top, and apply for summer internships.",
+    proof: "Internship applications sent, Project 2 started",
+    groups: [{ title: "", tasks: [
+      ["p3-1", "Learn Semgrep, CodeQL, gitleaks, OSV-Scanner and OWASP ZAP", ""],
+      ["p3-2", "Study the OWASP Top 10 for LLM Applications", "PortSwigger Web LLM attacks labs, Lakera Gandalf"],
+      ["p3-3", "Apply for summer internships in April and May", "National CERT, Lahore software houses, remote roles"],
+      ["p3-4", "Start a vulnerability disclosure programme", "HackerOne, Bugcrowd or Intigriti, in scope only"],
+      ["p3-5", "Start Project 2: AI-built app security study", "Your own apps only"],
+    ]}],
+  },
+  {
+    id: "p4", name: "Real experience", start: "2027-06-01", end: "2027-09-30", range: "Jun – Sep 2027",
+    goal: "Get your first real security experience before 3rd semester.",
+    proof: "A security experience entry on LinkedIn and the CV",
+    groups: [{ title: "", tasks: [
+      ["p4-1", "Do an internship, or Website Security Health Checks for 2–3 clients", "Always with a written scope and permission"],
+      ["p4-2", "Add the experience to LinkedIn and your CV", "Ask Claude"],
+      ["p4-3", "Get a mentor or a referral from that work", ""],
+      ["p4-4", "Plan the Burp Suite Certified Practitioner (BSCP) exam", "After most Practitioner labs"],
+    ]}],
+  },
+];
+
+
+const ALL = PHASES.flatMap(p => p.groups.flatMap(g => g.tasks.map(t => ({ id: t[0], phase: p.id }))));
+const TOTAL = ALL.length;
+const VALID = new Set(ALL.map(t => t.id));
+const KEY = "sabhi-cyber-roadmap-done";
+const today = new Date();
+const $ = (id) => document.getElementById(id);
+
+let done = {};
+let storageOk = true;
+try { done = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { storageOk = false; done = {}; }
+
+function save() {
+  try { localStorage.setItem(KEY, JSON.stringify(done)); storageOk = true; }
+  catch (e) { storageOk = false; }
+  const el = $("sync");
+  el.dataset.state = storageOk ? "saved" : "error";
+  el.textContent = storageOk ? "Saved on this device" : "This browser is blocking saving. Ticks will be lost when you close the page.";
+}
+
+function taskItem([id, text, hint], where) {
+  const li = document.createElement("li");
+  li.className = "task" + (done[id] ? " done" : "");
+  const label = document.createElement("label");
+  const box = document.createElement("input");
+  box.type = "checkbox"; box.id = where + "-" + id;
+  box.checked = !!done[id]; box.dataset.task = id;
+  const span = document.createElement("span");
+  span.className = "text";
+  span.textContent = text;
+  if (hint) { const s = document.createElement("small"); s.textContent = hint; span.appendChild(s); }
+  label.append(box, span);
+  li.appendChild(label);
+  return li;
+}
+
+function phaseStats(p) {
+  const ids = p.groups.flatMap(g => g.tasks.map(t => t[0]));
+  const n = ids.filter(id => done[id]).length;
+  return { n, total: ids.length, complete: n === ids.length };
+}
+
+function render() {
+  const n = ALL.filter(t => done[t.id]).length;
+  const pct = Math.round((n / TOTAL) * 100);
+  $("pct").textContent = pct + "%";
+  $("pct-bar").style.width = pct + "%";
+  $("count").textContent = n + " / " + TOTAL;
+  $("weeks").textContent = Math.max(0, Math.ceil((new Date("2027-09-01T00:00:00") - today) / (7 * 864e5)));
+
+  const nowPhase = PHASES.find(p => !phaseStats(p).complete);
+  $("now-label").textContent = nowPhase ? "Current phase: " + nowPhase.name : "All phases done";
+
+  const weekTasks = $("week-tasks");
+  weekTasks.replaceChildren();
+  let picked = null;
+  for (const p of PHASES) {
+    for (const g of p.groups) {
+      if (g.tasks.some(t => !done[t[0]])) { picked = { p, g }; break; }
+    }
+    if (picked) break;
+  }
+  if (picked) {
+    $("week-sub").textContent = picked.g.title || picked.p.name + " · " + picked.p.range;
+    picked.g.tasks.forEach(t => weekTasks.appendChild(taskItem(t, "week")));
+  } else {
+    $("week-sub").textContent = "Everything is ticked";
+    const li = document.createElement("li");
+    li.className = "note"; li.textContent = "You finished the whole roadmap. Time to plan the next one with Claude.";
+    weekTasks.appendChild(li);
+  }
+
+  const route = $("route");
+  route.replaceChildren();
+  PHASES.forEach((p, i) => {
+    const st = phaseStats(p);
+    const ended = today > new Date(p.end + "T23:59:59");
+    const status = st.complete ? "done" : (p === nowPhase ? (ended ? "behind" : "now") : (ended ? "behind" : "next"));
+    const li = document.createElement("li");
+    li.className = "phase"; li.dataset.status = status;
+    li.innerHTML = '<span class="station" aria-hidden="true"></span>';
+    const card = document.createElement("div"); card.className = "card";
+    const head = document.createElement("div"); head.className = "phase-head";
+    const h = document.createElement("h2"); h.textContent = "Phase " + i + " · " + p.name;
+    const range = document.createElement("span"); range.className = "chip"; range.textContent = p.range;
+    head.append(h, range);
+    if (status !== "next") {
+      const chip = document.createElement("span");
+      chip.className = "chip " + status;
+      chip.textContent = { now: "Now", done: "Done", behind: "Behind schedule" }[status];
+      head.appendChild(chip);
+    }
+    const count = document.createElement("span"); count.className = "count"; count.textContent = st.n + "/" + st.total;
+    head.appendChild(count);
+    const goal = document.createElement("p"); goal.className = "goal"; goal.textContent = p.goal;
+    card.append(head, goal);
+    p.groups.forEach(g => {
+      const grp = document.createElement("div"); grp.className = "group";
+      if (g.title) { const gh = document.createElement("h3"); gh.textContent = g.title; grp.appendChild(gh); }
+      const ul = document.createElement("ul"); ul.className = "tasks";
+      g.tasks.forEach(t => ul.appendChild(taskItem(t, "route")));
+      grp.appendChild(ul);
+      card.appendChild(grp);
+    });
+    const proof = document.createElement("p"); proof.className = "proof";
+    proof.innerHTML = "<b>Proof at the end:</b> ";
+    proof.appendChild(document.createTextNode(p.proof));
+    card.appendChild(proof);
+    li.appendChild(card);
+    route.appendChild(li);
+  });
+}
+
+document.addEventListener("change", (e) => {
+  const box = e.target;
+  if (!(box instanceof HTMLInputElement) || !box.dataset.task) return;
+  if (box.checked) done[box.dataset.task] = true; else delete done[box.dataset.task];
+  save();
+  render();
+  const again = document.getElementById(box.id);
+  if (again) again.focus();
+});
+
+// Progress code: "CR1:" followed by the ticked step ids
+function progressCode() {
+  return "CR1:" + ALL.filter(t => done[t.id]).map(t => t.id).join(",");
+}
+function toolMsg(text, isErr) {
+  const m = $("tool-msg"); m.textContent = text; m.classList.toggle("err", !!isErr);
+}
+$("copy-btn").addEventListener("click", async () => {
+  const code = progressCode();
+  const out = $("code-out");
+  out.value = code; out.hidden = false;
+  try {
+    await navigator.clipboard.writeText(code);
+    toolMsg("Copied. Open the roadmap on your other device, press “Load a progress code” and paste it.");
+  } catch (e) {
+    out.focus(); out.select();
+    toolMsg("Select the code above and copy it (Ctrl+C, or long-press on your phone).");
+  }
+});
+$("load-toggle").addEventListener("click", () => {
+  const box = $("load-box"); box.hidden = !box.hidden;
+  if (!box.hidden) $("code-in").focus();
+});
+$("load-btn").addEventListener("click", () => {
+  const raw = $("code-in").value.trim();
+  if (!raw.startsWith("CR1:")) { toolMsg("That isn't a progress code. It should start with CR1:", true); return; }
+  const ids = raw.slice(4).split(",").map(s => s.trim()).filter(id => VALID.has(id));
+  let added = 0;
+  ids.forEach(id => { if (!done[id]) { done[id] = true; added++; } });
+  save(); render();
+  $("code-in").value = "";
+  toolMsg(added ? "Added " + added + " tick" + (added === 1 ? "" : "s") + "." : "Nothing new to add. Those steps were already ticked.");
+});
+
+save();
+render();
+
+// Offline support when served over http(s); a double-clicked file works without it
+if ("serviceWorker" in navigator && location.protocol.startsWith("http")) {
+  navigator.serviceWorker.register("sw.js").catch(() => {});
+}
+</script>
+</body>
+</html>
