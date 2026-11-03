@@ -142,7 +142,7 @@
   <header>
     <div class="eyebrow">BS Cyber Security · Semester 1 · Lahore</div>
     <h1>Sabhi's Cyber Roadmap</h1>
-    <p class="lede">From zero to a first security internship before 3rd semester (September 2027). Track: web application security, then the security of AI-built apps. About 1 to 1.5 hours a day, 6 days a week.</p>
+    <p class="lede">From zero to a first security internship before 3rd semester (September 2027). Track: web and network penetration testing first (TryHackMe + PortSwigger), then the security of AI-built apps. About 1 to 1.5 hours a day, 6 days a week.</p>
   </header>
 
   <section class="summary" aria-label="Progress summary">
@@ -195,6 +195,7 @@
     <ol>
       <li><b>One course at a time.</b> Finish it before opening another.</li>
       <li><b>Do, don't only watch.</b> Every hour of video gets a lab or a hands-on check.</li>
+      <li><b>Labs over theory.</b> TryHackMe and PortSwigger first: four working pentesters gave the same advice.</li>
       <li><b>Explain it in two lines.</b> If you can't write it simply on GitHub, you don't know it yet.</li>
       <li><b>Use AI as a tutor,</b> then check its answer against the course.</li>
       <li><b>Test only what you own</b> or have written permission to test. Never break this one.</li>
@@ -205,9 +206,9 @@
 <script>
 const PHASES = [
   {
-    id: "p0", name: "Absolute basics", start: "2026-11-01", end: "2026-11-30", range: "Nov 2026",
-    goal: "Learn the language of security, how the internet works, and your first Linux and web-security steps.",
-    proof: "Cisco badge, Week 1–4 notes on GitHub, first LinkedIn post",
+    id: "p0", name: "Absolute basics", start: "2026-11-01", end: "2026-12-15", range: "Nov – mid Dec 2026",
+    goal: "Learn the language of security, how networks and the web work, and Linux and Windows basics, through hands-on labs.",
+    proof: "Cisco badge, weekly notes on GitHub, first LinkedIn post",
     groups: [
       { title: "Week 1 · Security language", tasks: [
         ["w1-1", "Create a free Cisco NetAcad account and enroll in Introduction to Cybersecurity", "netacad.com"],
@@ -218,17 +219,19 @@ const PHASES = [
         ["w1-6", "Turn on 2FA with an authenticator app for your work email and GitHub", ""],
         ["w1-7", "Find and join the university cyber society or CTF team", ""],
       ]},
-      { title: "Week 2 · How the internet works", tasks: [
-        ["w2-1", "Learn IP addresses, DNS, ports, HTTP vs HTTPS, cookies and sessions", "Cisco Networking Basics or Professor Messer Network+ videos"],
+      { title: "Week 2 · How networks and the web work", tasks: [
+        ["w2-1", "Create a free TryHackMe account and do the networking rooms of the Pre Security path", "IP addresses, DNS, ports, HTTP vs HTTPS, cookies and sessions"],
         ["w2-2", "Inspect a site you built in DevTools", "DNS records, cookies, response headers, third-party scripts: write what each does"],
         ["w2-3", "Write Week 2 notes on GitHub", ""],
       ]},
-      { title: "Week 3 · Linux basics", tasks: [
-        ["w3-1", "Learn files, users, permissions and processes", ""],
-        ["w3-2", "Clear OverTheWire Bandit levels 0–10", "Windows already has SSH built in"],
+      { title: "Week 3 · Linux and Windows basics", tasks: [
+        ["w3-1", "Finish the Linux Fundamentals rooms in TryHackMe Pre Security", "Files, users, permissions and processes"],
+        ["w3-4", "Finish the Windows Fundamentals rooms in TryHackMe Pre Security", ""],
+        ["w3-2", "Optional: clear OverTheWire Bandit levels 0–10", "Extra Linux practice; Windows already has SSH built in"],
         ["w3-3", "Write Week 3 notes on GitHub", ""],
       ]},
       { title: "Week 4 · First web security", tasks: [
+        ["w4-5", "Finish the rest of the TryHackMe Pre Security path", ""],
         ["w4-1", "Create a PortSwigger Web Security Academy account and read Access control and Authentication", "Free"],
         ["w4-2", "Solve your first 3 Apprentice labs", ""],
         ["w4-3", "Install Burp Suite Community", ""],
@@ -237,52 +240,57 @@ const PHASES = [
     ],
   },
   {
-    id: "p1", name: "Foundations", start: "2026-12-01", end: "2027-02-28", range: "Dec 2026 – Feb 2027",
-    goal: "Networking, Linux and the core of web security, with write-ups that prove it.",
-    proof: "portswigger-writeups repo, 4–6 LinkedIn posts, skills you can explain",
+    id: "p1", name: "Pentest foundations", start: "2026-12-16", end: "2027-02-28", range: "Mid Dec 2026 – Feb 2027",
+    goal: "Learn penetration testing hands-on, with web security alongside, and start playing CTFs.",
+    proof: "Write-ups repo, 4–6 LinkedIn posts, skills you can explain",
     groups: [{ title: "", tasks: [
-      ["p1-1", "Finish a networking basics course", "Cisco Networking Basics or Professor Messer Network+"],
-      ["p1-2", "Clear OverTheWire Bandit levels 11–20", ""],
-      ["p1-3", "Finish all PortSwigger Apprentice labs", "SQLi, XSS, access control, authentication, SSRF, CSRF"],
+      ["p1-9", "Start the TryHackMe Jr Penetration Tester path", "Most rooms need Premium: check the student discount first"],
+      ["p1-10", "Finish the Jr Penetration Tester path", "Web hacking, Burp Suite, network scanning, privilege escalation"],
+      ["p1-3", "Finish all PortSwigger Apprentice labs", "2–3 a week alongside TryHackMe"],
       ["p1-4", "Study OWASP Top 10 and OWASP API Security Top 10", ""],
+      ["p1-11", "Play your first beginner CTFs", "picoCTF, TryHackMe CTF rooms or CTFtime events, ideally with the university team"],
       ["p1-5", "Learn basic Python for small scripts", "requests, reading HTML"],
-      ["p1-6", "Start a portswigger-writeups repo with your own explanations", ""],
+      ["p1-6", "Start a write-ups repo for your labs and CTFs, in your own words", ""],
       ["p1-7", "Publish 4–6 LinkedIn posts that show real work", ""],
-      ["p1-8", "Optional: Google Cybersecurity Certificate on Coursera", "Apply for financial aid"],
+      ["p1-1", "Optional: Cisco Networking Basics for deeper networking", ""],
     ]}],
   },
   {
-    id: "p2", name: "AI-built apps", start: "2027-02-01", end: "2027-04-30", range: "Feb – Apr 2027",
-    goal: "Learn the stack AI builders generate by building it yourself, then ship your first project.",
-    proof: "Project 1 on GitHub, cybersecurity internship CV",
+    id: "p2", name: "Web pentest skills", start: "2027-02-01", end: "2027-04-30", range: "Feb – Apr 2027",
+    goal: "Go deeper on web attacks, earn a first practical certificate and ship your first project.",
+    proof: "Certificate on LinkedIn, Project 1 on GitHub, internship CV",
     groups: [{ title: "", tasks: [
-      ["p2-1", "Build 2–3 small apps yourself with AI app builders", "Login, notes, file upload"],
-      ["p2-2", "Learn Supabase Row Level Security and Firebase Security Rules", "Also anon vs service keys, environment variables, Stripe webhooks"],
+      ["p2-5", "Solve PortSwigger Practitioner labs", "SQLi, XSS, access control, authentication, SSRF"],
+      ["p2-6", "Earn a first low-cost practical certificate", "For example eJPT or TryHackMe PT1; check current prices. CEH later, when an employer pays or job ads ask for it"],
       ["p2-3", "Ship Project 1: no-code website security checklist and passive checker v0.1", "Open source on GitHub"],
       ["p2-4", "Make a cybersecurity internship version of your CV", "Ask Claude"],
+      ["p2-7", "Send a progress update to the seniors who guided you", "Aniq, Tahir, Shazeem, Abdul Moiz: show what you finished"],
     ]}],
   },
   {
-    id: "p3", name: "Tools and AI security", start: "2027-04-01", end: "2027-06-30", range: "Apr – Jun 2027",
-    goal: "Learn the scanners, then the judgement on top, and apply for summer internships.",
-    proof: "Internship applications sent, Project 2 started",
+    id: "p3", name: "Internship hunt", start: "2027-04-01", end: "2027-06-30", range: "Apr – Jun 2027",
+    goal: "Apply for internships, practise network pentesting and start real bug reports.",
+    proof: "Internship applications sent, first VDP reports",
     groups: [{ title: "", tasks: [
-      ["p3-1", "Learn Semgrep, CodeQL, gitleaks, OSV-Scanner and OWASP ZAP", ""],
-      ["p3-2", "Study the OWASP Top 10 for LLM Applications", "PortSwigger Web LLM attacks labs, Lakera Gandalf"],
-      ["p3-3", "Apply for summer internships in April and May", "National CERT, Lahore software houses, remote roles"],
-      ["p3-4", "Start a vulnerability disclosure programme", "HackerOne, Bugcrowd or Intigriti, in scope only"],
-      ["p3-5", "Start Project 2: AI-built app security study", "Your own apps only"],
+      ["p3-3", "Apply for internships in April and May", "VAPT / pentest / AppSec intern: National CERT, Lahore software houses, remote roles"],
+      ["p3-6", "Practise network pentesting on easy TryHackMe or Hack The Box machines", "Hack The Box CPTS is the deeper path later"],
+      ["p3-4", "Start a vulnerability disclosure or bug bounty programme", "HackerOne, Bugcrowd or Intigriti, in scope only"],
+      ["p3-1", "Learn Semgrep, gitleaks, OSV-Scanner and OWASP ZAP", ""],
     ]}],
   },
   {
-    id: "p4", name: "Real experience", start: "2027-06-01", end: "2027-09-30", range: "Jun – Sep 2027",
-    goal: "Get your first real security experience before 3rd semester.",
-    proof: "A security experience entry on LinkedIn and the CV",
+    id: "p4", name: "Real experience, then AI security", start: "2027-06-01", end: "2027-09-30", range: "Jun – Sep 2027",
+    goal: "Get your first real security experience, then add the AI-security specialisation on top.",
+    proof: "A security experience entry on LinkedIn and the CV, Project 2 started",
     groups: [{ title: "", tasks: [
       ["p4-1", "Do an internship, or Website Security Health Checks for 2–3 clients", "Always with a written scope and permission"],
       ["p4-2", "Add the experience to LinkedIn and your CV", "Ask Claude"],
       ["p4-3", "Get a mentor or a referral from that work", ""],
-      ["p4-4", "Plan the Burp Suite Certified Practitioner (BSCP) exam", "After most Practitioner labs"],
+      ["p3-2", "Study the OWASP Top 10 for LLM Applications", "PortSwigger Web LLM attacks labs, Lakera Gandalf"],
+      ["p2-1", "Build 2–3 small apps yourself with AI app builders", "Login, notes, file upload"],
+      ["p2-2", "Learn Supabase Row Level Security and Firebase Security Rules", "Also anon vs service keys, environment variables, Stripe webhooks"],
+      ["p3-5", "Start Project 2: AI-built app security study", "Your own apps only"],
+      ["p4-4", "Plan the next certificate: BSCP, or CEH if job ads ask for it", "BSCP after most Practitioner labs"],
     ]}],
   },
 ];

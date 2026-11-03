@@ -1,5 +1,5 @@
 // Keeps the roadmap usable offline: app files are cached on install, fonts as they load
-const CACHE = "cyber-roadmap-v1";
+const CACHE = "cyber-roadmap-v2";
 const SHELL = ["./", "./index.html", "./manifest.webmanifest", "./icon-192.png", "./icon-512.png"];
 
 self.addEventListener("install", (e) => {
